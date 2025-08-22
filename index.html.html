@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venda de Acessos - AbsoluteTV</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; text-align: center; }
+        header { background-color: #25D366; color: white; padding: 20px 0; }
+        header h1 { margin: 0; }
+        .container { max-width: 1000px; margin: 40px auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .plano, .formulario { background: white; padding: 20px; border-radius: 10px; width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .plano h2, .formulario h2 { color: #333; }
+        .plano p { font-size: 18px; margin: 15px 0; }
+        button { padding: 12px 20px; cursor: pointer; background-color: #25D366; color: white; border: none; font-size: 16px; border-radius: 5px; }
+        button:hover { background-color: #128C7E; }
+        input { padding: 10px; width: 90%; margin: 10px 0; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+        footer { margin-top: 50px; color: #666; font-size: 14px; padding: 20px 0; }
+        #confirm { margin-top: 20px; color: green; font-weight: bold; }
+        #vendas { margin-top: 20px; font-size: 16px; color: #333; }
+        @media(max-width: 650px) {
+            .container { flex-direction: column; align-items: center; }
+        }
+        .pix { margin-top: 20px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📦 Compre seu Acesso - AbsoluteTV</h1>
+    </header>
+
+    <div class="container">
+        <div class="formulario">
+            <h2>Seus dados</h2>
+            <input type="text" id="nome" placeholder="Seu nome" required>
+            <input type="email" id="email" placeholder="Seu e-mail" required>
+        </div>
+
+        <div class="plano">
+            <h2>Plano Mensal</h2>
+            <p>R$ 30,00 / mês</p>
+            <button onclick="comprar('Plano Mensal', 30)">Comprar</button>
+        </div>
+
+        <div class="plano">
+            <h2>Plano Trimestral</h2>
+            <p>R$ 80,00 / 3 meses</p>
+            <button onclick="comprar('Plano Trimestral', 80)">Comprar</button>
+        </div>
+
+        <div class="plano">
+            <h2>Plano Anual</h2>
+            <p>R$ 300,00 / ano</p>
+            <button onclick="comprar('Plano Anual', 300)">Comprar</button>
+        </div>
+    </div>
+
+    <div id="confirm"></div>
+    <div id="vendas">Vendas realizadas: <span id="contadorVendas">0</span></div>
+
+    <div class="pix">
+        <h2>Pagamento via PIX</h2>
+        <p>Chave PIX: <b>jeanpablonordic@gmail.com</b></p>
+        <p>Após pagamento, envie o comprovante via WhatsApp para liberar o acesso.</p>
+        <!-- Você pode substituir por QR Code se quiser -->
+    </div>
+
+    <footer>
+        &copy; 2025 AbsoluteTV. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        let vendas = 0;
+
+        function comprar(plano, valor) {
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if(nome === "" || email === "") {
+                alert("Por favor, preencha seu nome e e-mail antes de comprar.");
+                return;
+            }
+
+            const telefone = "5571997233046"; // Troque pelo seu WhatsApp
+            const mensagem = `Olá! Meu nome é ${nome}, e meu e-mail é ${email}. Quero comprar o ${plano} por R$ ${valor}. Por favor, liberar meu acesso.`;
+            const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+
+            window.open(url, "_blank");
+
+            vendas++;
+            document.getElementById('contadorVendas').innerText = vendas;
+            document.getElementById('confirm').innerText = `✅ Pedido do ${plano} iniciado! Verifique seu WhatsApp.`;
+        }
+    </script>
+</body>
+</html>
